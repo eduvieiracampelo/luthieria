@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   resources :servicos
   resources :instrumentos
-  resources :clientes do
-    resources :instrumentos
-  end
+  resources :clientes
   devise_for :users
 
   get "busca", to: "busca#index"

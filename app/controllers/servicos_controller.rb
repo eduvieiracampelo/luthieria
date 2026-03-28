@@ -19,22 +19,26 @@ class ServicosController < ApplicationController
   def create
     @servico = Servico.new(servico_params)
 
-    respond_to do |format|
-      if @servico.save
-        format.turbo_stream
-        format.html { redirect_to @servico, notice: "Serviço criado com sucesso!" }
-      else
+    if @servico.save
+      respond_to do |format|
+        format.turbo_stream { redirect_to root_path, notice: "Serviço criado com sucesso!" }
+        format.html { redirect_to root_path, notice: "Serviço criado com sucesso!" }
+      end
+    else
+      respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @servico.update(servico_params)
-        format.turbo_stream
-        format.html { redirect_to @servico, notice: "Serviço atualizado com sucesso!", status: :see_other }
-      else
+    if @servico.update(servico_params)
+      respond_to do |format|
+        format.turbo_stream { redirect_to root_path, notice: "Serviço atualizado com sucesso!" }
+        format.html { redirect_to root_path, notice: "Serviço atualizado com sucesso!", status: :see_other }
+      end
+    else
+      respond_to do |format|
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
@@ -44,8 +48,8 @@ class ServicosController < ApplicationController
     @servico.destroy!
 
     respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to servicos_path, notice: "Serviço excluído com sucesso!", status: :see_other }
+      format.turbo_stream { redirect_to root_path, notice: "Serviço excluído com sucesso!" }
+      format.html { redirect_to root_path, notice: "Serviço excluído com sucesso!", status: :see_other }
     end
   end
 

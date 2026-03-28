@@ -19,22 +19,26 @@ class InstrumentosController < ApplicationController
   def create
     @instrumento = Instrumento.new(instrumento_params)
 
-    respond_to do |format|
-      if @instrumento.save
-        format.turbo_stream
-        format.html { redirect_to @instrumento, notice: "Instrumento criado com sucesso!" }
-      else
+    if @instrumento.save
+      respond_to do |format|
+        format.turbo_stream { redirect_to root_path, notice: "Instrumento criado com sucesso!" }
+        format.html { redirect_to root_path, notice: "Instrumento criado com sucesso!" }
+      end
+    else
+      respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @instrumento.update(instrumento_params)
-        format.turbo_stream
-        format.html { redirect_to @instrumento, notice: "Instrumento atualizado com sucesso!", status: :see_other }
-      else
+    if @instrumento.update(instrumento_params)
+      respond_to do |format|
+        format.turbo_stream { redirect_to root_path, notice: "Instrumento atualizado com sucesso!" }
+        format.html { redirect_to root_path, notice: "Instrumento atualizado com sucesso!", status: :see_other }
+      end
+    else
+      respond_to do |format|
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
@@ -44,8 +48,8 @@ class InstrumentosController < ApplicationController
     @instrumento.destroy!
 
     respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to instrumentos_path, notice: "Instrumento excluído com sucesso!", status: :see_other }
+      format.turbo_stream { redirect_to root_path, notice: "Instrumento excluído com sucesso!" }
+      format.html { redirect_to root_path, notice: "Instrumento excluído com sucesso!", status: :see_other }
     end
   end
 

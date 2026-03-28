@@ -1,0 +1,44 @@
+<div id="toast" class="fixed top-20 right-4 z-50 transform transition-transform duration-300 translate-x-full">
+  <div class="bg-white rounded-lg shadow-lg border p-4 flex items-center gap-3 min-w-72">
+    <div id="toast-icon"></div>
+    <p id="toast-message" class="text-sm font-medium"></p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('turbo:load', function() {
+    const notice = document.querySelector('.notice')
+    const alert = document.querySelector('.alert')
+    
+    if (notice && notice.textContent.trim()) {
+      showToast(notice.textContent.trim(), 'success')
+    }
+    if (alert && alert.textContent.trim()) {
+      showToast(alert.textContent.trim(), 'error')
+    }
+  })
+
+  function showToast(message, type) {
+    const toast = document.getElementById('toast')
+    const toastMessage = document.getElementById('toast-message')
+    const toastIcon = document.getElementById('toast-icon')
+    
+    toastMessage.textContent = message
+    
+    if (type === 'success') {
+      toast.querySelector('div').classList.remove('bg-red-50', 'border-red-200')
+      toast.querySelector('div').classList.add('bg-green-50', 'border-green-200')
+      toastIcon.innerHTML = '<svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>'
+    } else {
+      toast.querySelector('div').classList.remove('bg-green-50', 'border-green-200')
+      toast.querySelector('div').classList.add('bg-red-50', 'border-red-200')
+      toastIcon.innerHTML = '<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>'
+    }
+    
+    toast.classList.remove('translate-x-full')
+    
+    setTimeout(() => {
+      toast.classList.add('translate-x-full')
+    }, 3000)
+  }
+</script>

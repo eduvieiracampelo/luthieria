@@ -7,6 +7,6 @@ class DashboardController < ApplicationController
     @servicos_pendentes = Servico.pendentes.count
     @servicos_concluidos = Servico.concluidos.count
     @receita_total = Servico.concluidos.sum(:valor)
-    @servicos = Servico.order(created_at: :desc).limit(50)
+    @servicos = Servico.order(created_at: :desc).limit(100)
   end
 end

@@ -19,22 +19,26 @@ class ClientesController < ApplicationController
   def create
     @cliente = Cliente.new(cliente_params)
 
-    respond_to do |format|
-      if @cliente.save
-        format.turbo_stream
-        format.html { redirect_to @cliente, notice: "Cliente criado com sucesso!" }
-      else
+    if @cliente.save
+      respond_to do |format|
+        format.turbo_stream { redirect_to root_path, notice: "Cliente criado com sucesso!" }
+        format.html { redirect_to root_path, notice: "Cliente criado com sucesso!" }
+      end
+    else
+      respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @cliente.update(cliente_params)
-        format.turbo_stream
-        format.html { redirect_to @cliente, notice: "Cliente atualizado com sucesso!", status: :see_other }
-      else
+    if @cliente.update(cliente_params)
+      respond_to do |format|
+        format.turbo_stream { redirect_to root_path, notice: "Cliente atualizado com sucesso!" }
+        format.html { redirect_to root_path, notice: "Cliente atualizado com sucesso!", status: :see_other }
+      end
+    else
+      respond_to do |format|
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
@@ -44,8 +48,8 @@ class ClientesController < ApplicationController
     @cliente.destroy!
 
     respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to clientes_path, notice: "Cliente excluído com sucesso!", status: :see_other }
+      format.turbo_stream { redirect_to root_path, notice: "Cliente excluído com sucesso!" }
+      format.html { redirect_to root_path, notice: "Cliente excluído com sucesso!", status: :see_other }
     end
   end
 

@@ -3,38 +3,40 @@
 <div class="w-full">
   <div id="notice"></div>
 
-  <div class="flex justify-between items-center mb-6">
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6">
     <h1 class="text-2xl font-bold">Instrumentos</h1>
     <%= link_to "Novo Instrumento", new_instrumento_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
   </div>
 
   <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-    <table class="w-full">
-      <thead class="bg-gray-50">
-        <tr>
-          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Modelo</th>
-          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Marca</th>
-          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tipo</th>
-          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cliente</th>
-          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ações</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-gray-200" id="instrumentos-list">
-        <% @instrumentos.each do |instrumento| %>
-          <tr id="<%= dom_id(instrumento) %>" class="hover:bg-gray-50">
-            <td class="px-4 py-3 font-medium"><%= instrumento.modelo %></td>
-            <td class="px-4 py-3"><%= instrumento.marca %></td>
-            <td class="px-4 py-3"><span class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded"><%= instrumento.tipo %></span></td>
-            <td class="px-4 py-3"><%= instrumento.cliente.nome %></td>
-            <td><%= render "shared/action_buttons", model: instrumento, edit_path: edit_instrumento_path(instrumento) %></td>
-          </tr>
-        <% end %>
-        <% if @instrumentos.empty? %>
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-full">
+        <thead class="bg-gray-50">
           <tr>
-            <td colspan="5" class="px-4 py-8 text-center text-gray-500">Nenhum instrumento cadastrado</td>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Modelo</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Marca</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tipo</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cliente</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ações</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody class="divide-y divide-gray-200" id="instrumentos-list">
+          <% @instrumentos.each do |instrumento| %>
+            <tr id="<%= dom_id(instrumento) %>" class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-medium"><%= instrumento.modelo %></td>
+              <td class="px-4 py-3"><%= instrumento.marca %></td>
+              <td class="px-4 py-3"><span class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded"><%= instrumento.tipo %></span></td>
+              <td class="px-4 py-3"><%= instrumento.cliente.nome %></td>
+              <td><%= render "shared/action_buttons", model: instrumento, edit_path: edit_instrumento_path(instrumento) %></td>
+            </tr>
+          <% end %>
+          <% if @instrumentos.empty? %>
+            <tr>
+              <td colspan="5" class="px-4 py-8 text-center text-gray-500">Nenhum instrumento cadastrado</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

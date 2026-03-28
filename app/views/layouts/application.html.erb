@@ -28,23 +28,23 @@
     <% if alert %><div class="alert hidden"><%= alert %></div><% end %>
 
     <% if user_signed_in? %>
-      <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-800 text-white p-4">
+      <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-800 text-white p-3 md:p-4">
         <div class="container mx-auto flex justify-between items-center">
-          <%= link_to "Luthieria Campelo", root_path, class: "text-xl font-bold" %>
-          <div class="flex gap-4">
+          <%= link_to "Luthieria Campelo", root_path, class: "text-lg md:text-xl font-bold" %>
+          <div class="flex gap-2 md:gap-4 text-sm md:text-base">
             <%= link_to "Dashboard", root_path, class: "hover:text-gray-300" %>
-            <%= link_to "Clientes", clientes_path, class: "hover:text-gray-300" %>
-            <%= link_to "Instrumentos", instrumentos_path, class: "hover:text-gray-300" %>
+            <%= link_to "Clientes", clientes_path, class: "hover:text-gray-300 hidden md:inline" %>
+            <%= link_to "Instrumentos", instrumentos_path, class: "hover:text-gray-300 hidden md:inline" %>
             <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "hover:text-gray-300" %>
           </div>
         </div>
       </nav>
     <% else %>
-      <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-800 text-white p-4">
+      <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-800 text-white p-3 md:p-4">
         <div class="container mx-auto flex justify-between items-center">
-          <%= link_to "Luthieria Campelo", root_path, class: "text-xl font-bold" %>
-          <div class="flex gap-4">
-            <%= link_to "Entrar", new_user_session_path, class: "hover:text-gray-300" %>
+          <%= link_to "Luthieria Campelo", root_path, class: "text-lg md:text-xl font-bold" %>
+          <div class="flex gap-2 md:gap-4">
+            <%= link_to "Entrar", new_user_session_path, class: "hover:text-gray-300 text-sm md:text-base" %>
           </div>
         </div>
       </nav>

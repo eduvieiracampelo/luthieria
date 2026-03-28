@@ -1,0 +1,34 @@
+<div id="<%= dom_id servico %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Descricao:</strong>
+    <%= servico.descricao %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Valor:</strong>
+    <%= servico.valor %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Observacoes:</strong>
+    <%= servico.observacoes %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Data inicio:</strong>
+    <%= servico.data_inicio %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Data conclusao:</strong>
+    <%= servico.data_conclusao %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Concluido:</strong>
+    <%= servico.concluido? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Cliente:</strong>
+    <%= servico.cliente_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Instrumento:</strong>
+    <%= servico.instrumento_id %>
+  </div>
+</div>

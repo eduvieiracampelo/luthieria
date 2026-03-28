@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  descricao: MyText
+  valor: 9.99
+  observacoes: MyText
+  data_inicio: 2026-03-27
+  data_conclusao: 2026-03-27
+  concluido: false
+  cliente: one
+  instrumento: one
+
+two:
+  descricao: MyText
+  valor: 9.99
+  observacoes: MyText
+  data_inicio: 2026-03-27
+  data_conclusao: 2026-03-27
+  concluido: false
+  cliente: two
+  instrumento: two

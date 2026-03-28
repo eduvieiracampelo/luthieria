@@ -1,0 +1,73 @@
+<%= form_with(model: servico, class: "contents", data: { controller: "instrumento-select" }) do |form| %>
+  <% if servico.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 rounded-md mb-4">
+      <h2 class="font-medium"><%= pluralize(servico.errors.count, "erro") %> impediu o salvamento:</h2>
+      <ul class="list-disc ml-4 mt-1">
+        <% servico.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="bg-white rounded-lg shadow border border-gray-200 p-6">
+    <div>
+      <%= form.label :descricao, "Descrição do Serviço", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.textarea :descricao, rows: 2, placeholder: "Ex: Troca de cordas, regulagem, conserto...", class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <%= form.label :cliente_id, "Cliente", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= form.collection_select :cliente_id, Cliente.order(:nome), :id, :nome, { prompt: "Selecione um cliente" }, { 
+          class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
+          data: { instrumento_select_target: "cliente" }
+        } %>
+      </div>
+
+      <div>
+        <%= form.label :instrumento_id, "Instrumento", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= form.select :instrumento_id, [], { prompt: "Selecione um instrumento" }, { 
+          class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
+          data: { 
+            instrumento_select_target: "instrumento", 
+            instrumentos: Instrumento.select(:id, :modelo, :cliente_id).order(:modelo).to_json(only: [:id, :modelo, :cliente_id]),
+            selected: servico.instrumento_id
+          }
+        } %>
+      </div>
+    </div>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <%= form.label :valor, "Valor (R$)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= form.number_field :valor, step: 0.01, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+
+      <div>
+        <%= form.label :data_inicio, "Data Início", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= form.date_field :data_inicio, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+
+      <div>
+        <%= form.label :data_conclusao, "Data Conclusão", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= form.date_field :data_conclusao, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <%= form.label :observacoes, "Observações", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.textarea :observacoes, rows: 2, placeholder: "Observações adicionais...", class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+
+    <div class="mt-4 flex items-center gap-2">
+      <%= form.checkbox :concluido, class: "h-5 w-5 text-blue-600 rounded" %>
+      <%= form.label :concluido, "Serviço concluído", class: "text-sm font-medium text-gray-700" %>
+    </div>
+
+    <div class="mt-6 flex gap-2">
+      <%= form.submit (servico.persisted? ? "Atualizar" : "Criar"), class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer" %>
+      <%= link_to "Cancelar", servicos_path, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  </div>
+<% end %>

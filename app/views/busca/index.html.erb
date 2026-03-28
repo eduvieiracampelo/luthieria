@@ -1,0 +1,62 @@
+<div class="w-full">
+  <h1 class="text-2xl font-bold mb-6">Buscar</h1>
+
+  <div class="bg-white rounded-lg shadow border border-gray-200 p-4 mb-6">
+    <%= form_with url: busca_path, method: :get, class: "flex gap-2" do |f| %>
+      <%= f.text_field :q, value: params[:q], placeholder: "Buscar cliente ou instrumento...", class: "flex-1 p-2 border border-gray-300 rounded-lg" %>
+      <%= f.submit "Buscar", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    <% end %>
+  </div>
+
+  <% if params[:q].present? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+        <div class="p-4 border-b border-gray-200 bg-gray-50">
+          <h2 class="text-lg font-semibold">Clientes (<%= @clientes.count %>)</h2>
+        </div>
+        <table class="w-full">
+          <tbody class="divide-y divide-gray-200">
+            <% if @clientes.any? %>
+              <% @clientes.each do |cliente| %>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-3">
+                    <%= link_to cliente.nome, cliente, class: "text-blue-600 hover:text-blue-800 font-medium" %>
+                    <div class="text-sm text-gray-500"><%= cliente.telefone %> - <%= cliente.email %></div>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td class="px-4 py-8 text-center text-gray-500">Nenhum cliente encontrado</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+        <div class="p-4 border-b border-gray-200 bg-gray-50">
+          <h2 class="text-lg font-semibold">Instrumentos (<%= @instrumentos.count %>)</h2>
+        </div>
+        <table class="w-full">
+          <tbody class="divide-y divide-gray-200">
+            <% if @instrumentos.any? %>
+              <% @instrumentos.each do |instrumento| %>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-3">
+                    <%= link_to instrumento.modelo, instrumento, class: "text-blue-600 hover:text-blue-800 font-medium" %>
+                    <div class="text-sm text-gray-500"><%= instrumento.marca %> - <%= instrumento.tipo %> - <%= instrumento.cliente.nome %></div>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td class="px-4 py-8 text-center text-gray-500">Nenhum instrumento encontrado</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>
